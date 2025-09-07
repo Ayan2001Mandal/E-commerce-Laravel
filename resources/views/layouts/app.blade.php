@@ -32,5 +32,36 @@
                 {{ $slot }}
             </main>
         </div>
+
+        <!-- ✅ Global Alerts -->
+        @if (session('success'))
+            <div class="fixed top-5 right-5 z-50" id="alertBox">
+                <div class="bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 animate-slide-in">
+                    ✅ {{ session('success') }}
+                </div>
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="fixed top-5 right-5 z-50" id="alertBox">
+                <div class="bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 animate-slide-in">
+                    ❌ {{ session('error') }}
+                </div>
+            </div>
+        @endif
+
+        <script>
+            // Auto-dismiss alerts after 3 seconds
+            setTimeout(() => {
+                let alertBox = document.getElementById('alertBox');
+                if (alertBox) {
+                    alertBox.style.transition = "opacity 0.5s ease";
+                    alertBox.style.opacity = "0";
+                    setTimeout(() => alertBox.remove(), 500);
+                }
+            }, 3000);
+        </script>
+        <!-- Footer -->
+    <x-userfooter />
     </body>
 </html>
